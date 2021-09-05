@@ -250,5 +250,30 @@ export default class GameScene extends Phaser.Scene {
 		player.anims.play("turn"); // set animation active
 
 		this.gameOver = true;
+
+		// call modall - show modal after pausing game
+		this.modalShow();
+	}
+
+	// set parameters for restarting - set game in initial point
+	restartGame() {
+		this.registry.destroy(); // destroy registry
+		this.events.off(); // disable all active events
+		this.scene.restart(); // restart current scene
+	}
+
+	// all Modal logic goes here..
+	modalShow() {
+		let modal = document.getElementById("myModal");
+		let restartBtn = document.getElementsByClassName("close")[0];
+
+		modal.style.display = "block";
+		restartBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			modal.style.display = "none";
+
+			// restart after clicking 'restart'
+			this.restartGame();
+		});
 	}
 }
