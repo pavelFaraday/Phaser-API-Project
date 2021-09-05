@@ -34,6 +34,7 @@ export default class GameScene extends Phaser.Scene {
 		this.bombSpawner = undefined;
 		this.stars = undefined;
 
+		this.timer(false);
 		this.gameOver = false;
 	}
 
@@ -274,6 +275,47 @@ export default class GameScene extends Phaser.Scene {
 
 			// restart after clicking 'restart'
 			this.restartGame();
+			this.resetTimer();
 		});
 	}
+
+	/* ---------------------------------- Timer --------------------------------- */
+
+	timer(isPaused) {
+		(function start_timer() {
+			var timer = document.getElementById("my_timer").innerHTML;
+			var arr = timer.split(":");
+			var hour = arr[0];
+			var min = arr[1];
+			var sec = arr[2];
+
+			if (isPaused == false) {
+				if (sec == 59) {
+					if (min == 59) {
+						hour++;
+						min = 0;
+						if (hour < 10) hour = "0" + hour;
+					} else {
+						min++;
+					}
+					if (min < 10) min = "0" + min;
+					sec = 0;
+				} else {
+					sec++;
+					if (sec < 10) sec = "0" + sec;
+				}
+			}
+
+			document.getElementById("my_timer").innerHTML =
+				hour + ":" + min + ":" + sec;
+			setTimeout(start_timer, 1000);
+		})();
+	}
+
+	resetTimer() {
+		document.getElementById("my_timer").innerHTML =
+			"00" + ":" + "00" + ":" + "00";
+	}
+
+	/* ---------------------------------- Timer --------------------------------- */
 }
