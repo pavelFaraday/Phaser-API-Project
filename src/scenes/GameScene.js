@@ -203,7 +203,9 @@ export default class GameScene extends Phaser.Scene {
 	createStars() {
 		const stars = this.physics.add.group({
 			key: STAR_KEY,
-			repeat: 11, // Create a star and add/clone 11 more
+			// Create a star and add/clone 3 more
+			// PS: for testing and time saving purposes I've set 4 stars
+			repeat: 3,
 			// Place them on the X horizontal axis 14 pixels from the left
 			// Place them on the Y vertical axis 0 pixels from the top
 			// Distance between the stars should be 70px
@@ -227,6 +229,8 @@ export default class GameScene extends Phaser.Scene {
 		if (this.stars.countActive(true) === 0) {
 			this.stars.children.iterate((child) => {
 				child.enableBody(true, child.x, 0, true, true);
+
+				this.pauseModalShow(); // call for PAUSING THE GAME
 			});
 		}
 
@@ -318,4 +322,22 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	/* ---------------------------------- Timer --------------------------------- */
+
+	/* ------------------------------- Pause Game ------------------------------ */
+	// all Modal logic goes here..
+	pauseModalShow() {
+		let pModal = document.getElementById("pauseModal");
+
+		// show modal + pause scene
+		pModal.style.display = "block";
+		this.scene.pause();
+
+		// hide modal + resume scene after 3 seconds
+		setTimeout(() => {
+			this.scene.resume();
+			pModal.style.display = "none";
+		}, 3000);
+	}
+
+	/* ------------------------------- Pause Game ------------------------------ */
 }

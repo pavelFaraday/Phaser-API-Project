@@ -23,7 +23,7 @@ h3 {
 	background-color: #ffffff;
 	margin: auto;
 	padding: 20px;
-	border: 3px solid green;
+	border: 3px solid rgb(189, 18, 18);
 	border-radius: 7px;
 	width: 50%;
 	display: flex;
@@ -94,3 +94,33 @@ h3 {
 	font-weight: bold;
 }
 /* ---------------------------------- TIMER --------------------------------- */
+
+/* ------------------------------- Pause Modal ------------------------------ */
+/* The Modal (background) */
+.pmodal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 100px;
+	width: 70%; /* Full width */
+	height: 20%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+}
+#pauseTitle {
+	color: rgb(77, 133, 45);
+}
+
+/* Modal Content */
+.pauseModal-content {
+	background-color: #ffffff;
+	margin: auto;
+	padding: 20px;
+	border: 3px solid green;
+	border-radius: 7px;
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
