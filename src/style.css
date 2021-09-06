@@ -50,51 +50,6 @@ h3 {
 	background-color: rgb(16, 54, 126);
 }
 
-/* ---------------------------------- TIMER --------------------------------- */
-#timer {
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 20px;
-	top: 70px;
-	width: 70%; /* Full width */
-	height: 20%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-}
-
-#my_timer {
-	color: rgb(252, 252, 252);
-	font-size: 150%;
-	font-weight: bold;
-}
-#label {
-	color: rgb(156, 30, 30);
-	font-size: 150%;
-	font-weight: bold;
-}
-
-#best_timer {
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 20px;
-	top: 100px;
-	width: 70%; /* Full width */
-	height: 20%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-}
-
-#bestmy_timer {
-	color: rgb(252, 252, 252);
-	font-size: 150%;
-	font-weight: bold;
-}
-
-#best_label {
-	color: rgb(156, 112, 30);
-	font-size: 150%;
-	font-weight: bold;
-}
-/* ---------------------------------- TIMER --------------------------------- */
-
 /* ------------------------------- Pause Modal ------------------------------ */
 /* The Modal (background) */
 .pmodal {

@@ -33,8 +33,11 @@ export default class GameScene extends Phaser.Scene {
 		this.scoreLabel = undefined;
 		this.bombSpawner = undefined;
 		this.stars = undefined;
+		this.timeText = undefined;
 
-		this.timer(false);
+		this.text = undefined; // %%%
+		this.timedEvent = undefined; // %%%
+
 		this.gameOver = false;
 	}
 
@@ -98,6 +101,7 @@ export default class GameScene extends Phaser.Scene {
 			this
 		);
 
+		this.createTimer();
 		// this.input.keyboard - for commands for keybord buttons
 		// createCursorKeys() - concretly for hotkeys for Up, Down, Left and Right (and also Space Bar and shift (Phaser3 referance))
 		this.cursors = this.input.keyboard.createCursorKeys();
@@ -204,7 +208,7 @@ export default class GameScene extends Phaser.Scene {
 		const stars = this.physics.add.group({
 			key: STAR_KEY,
 			// Create a star and add/clone 3 more
-			// PS: for testing and time saving purposes I've set 4 stars
+			// PS: for testing and timing purposes I set 4 stars
 			repeat: 3,
 			// Place them on the X horizontal axis 14 pixels from the left
 			// Place them on the Y vertical axis 0 pixels from the top
@@ -272,53 +276,57 @@ export default class GameScene extends Phaser.Scene {
 		let modal = document.getElementById("myModal");
 		let restartBtn = document.getElementsByClassName("close")[0];
 
-		modal.style.display = "block";
+		this.scene.pause(); // pause timer & game When colliding with a bomb
+		modal.style.display = "block"; // show modal
+
 		restartBtn.addEventListener("click", (e) => {
 			e.preventDefault();
-			modal.style.display = "none";
+			modal.style.display = "none"; // hide modal on clicking 'RESTART' button
 
-			// restart after clicking 'restart'
+			// restart after clicking 'restart' - clear all events & set game in initial point
 			this.restartGame();
-			this.resetTimer();
 		});
 	}
 
 	/* ---------------------------------- Timer --------------------------------- */
 
-	timer(isPaused) {
-		(function start_timer() {
-			var timer = document.getElementById("my_timer").innerHTML;
-			var arr = timer.split(":");
-			var hour = arr[0];
-			var min = arr[1];
-			var sec = arr[2];
+	createTimer() {
+		// set initial in seconds
+		this.initialTime = 0;
 
-			if (isPaused == false) {
-				if (sec == 59) {
-					if (min == 59) {
-						hour++;
-						min = 0;
-						if (hour < 10) hour = "0" + hour;
-					} else {
-						min++;
-					}
-					if (min < 10) min = "0" + min;
-					sec = 0;
-				} else {
-					sec++;
-					if (sec < 10) sec = "0" + sec;
-				}
-			}
+		// display text on Axis with formated Time
+		this.text = this.add.text(
+			16,
+			50,
+			"Current Round Time: " + this.formatTime(this.initialTime)
+		);
 
-			document.getElementById("my_timer").innerHTML =
-				hour + ":" + min + ":" + sec;
-			setTimeout(start_timer, 1000);
-		})();
+		// Each 1000 ms call onEvent
+		this.timedEvent = this.time.addEvent({
+			delay: 1000,
+			callback: this.onEvent,
+			callbackScope: this,
+			loop: true,
+		});
 	}
 
-	resetTimer() {
-		document.getElementById("my_timer").innerHTML =
-			"00" + ":" + "00" + ":" + "00";
+	// Format Time in seconds
+	formatTime(seconds) {
+		// Minutes
+		var minutes = Math.floor(seconds / 60);
+		// Seconds
+		var partInSeconds = seconds % 60;
+		// Adds left zeros to seconds
+		this.partInSeconds = partInSeconds.toString().padStart(2, "0");
+		// Returns formated time
+		return `${minutes}:${partInSeconds}`;
+	}
+
+	onEvent() {
+		this.initialTime += 1; // increment with One second
+		this.text.setText(
+			"Current Round Time: " + this.formatTime(this.initialTime)
+		);
 	}
 
 	/* ---------------------------------- Timer --------------------------------- */
