@@ -170,7 +170,7 @@ export default class GameScene extends Phaser.Scene {
 		// key: "left", - The key for the texture containing the animation frames. (defined for movements by pressing left keybord key)
 		// generateFrameNumbers() - method for extracting the frames
 		// We have a sprite sheet loaded called 'DUDE_KEY' and it contains 9 frames (see public/assets/dude.png)
-		// The 'start' value tells it to start after from first (index 1) frames.
+		// The 'start' value tells it to start after from first (index 0) frames.
 		// The 'end' value tells it to stop after 4 (index 3) frames.
 		// 'frameRate: 10' - The frame rate of playback in frames per second (default 24 if duration is null). Say simple: Speed of transition between frames per second
 		// 'repeat: -1' - Number of times to repeat the animation. Set to -1 to repeat forever.
@@ -207,9 +207,8 @@ export default class GameScene extends Phaser.Scene {
 	createStars() {
 		const stars = this.physics.add.group({
 			key: STAR_KEY,
-			// Create a star and add/clone 3 more
-			// PS: for testing and timing purposes I set 4 stars
-			repeat: 3,
+			// Create a star and add/clone 11 more + (create 1 + clone 11 = 12 stars)
+			repeat: 11,
 			// Place them on the X horizontal axis 14 pixels from the left
 			// Place them on the Y vertical axis 0 pixels from the top
 			// Distance between the stars should be 70px
@@ -264,6 +263,8 @@ export default class GameScene extends Phaser.Scene {
 		this.modalShow();
 	}
 
+	/* -------------------------- Logic for Restarting -------------------------- */
+
 	// set parameters for restarting - set game in initial point
 	restartGame() {
 		this.registry.destroy(); // destroy registry
@@ -287,6 +288,8 @@ export default class GameScene extends Phaser.Scene {
 			this.restartGame();
 		});
 	}
+
+	/* -------------------------- Logic for Restarting -------------------------- */
 
 	/* ---------------------------------- Timer --------------------------------- */
 
@@ -331,7 +334,7 @@ export default class GameScene extends Phaser.Scene {
 
 	/* ---------------------------------- Timer --------------------------------- */
 
-	/* ------------------------------- Pause Game ------------------------------ */
+	/* ------------------------------- Next round - Pause/resume Game ------------------------------ */
 	// all Modal logic goes here..
 	pauseModalShow() {
 		let pModal = document.getElementById("pauseModal");
@@ -347,5 +350,5 @@ export default class GameScene extends Phaser.Scene {
 		}, 3000);
 	}
 
-	/* ------------------------------- Pause Game ------------------------------ */
+	/* ------------------------------- Next round - Pause/resume Game ------------------------------ */
 }
