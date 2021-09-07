@@ -301,7 +301,7 @@ export default class GameScene extends Phaser.Scene {
 		this.text = this.add.text(
 			16,
 			50,
-			"Current Round Time: " + this.formatTime(this.initialTime)
+			"Time: " + this.formatTime(this.initialTime)
 		);
 
 		// Each 1000 ms call onEvent
@@ -316,9 +316,9 @@ export default class GameScene extends Phaser.Scene {
 	// Format Time in seconds
 	formatTime(seconds) {
 		// Minutes
-		var minutes = Math.floor(seconds / 60);
+		let minutes = Math.floor(seconds / 60);
 		// Seconds
-		var partInSeconds = seconds % 60;
+		let partInSeconds = seconds % 60;
 		// Adds left zeros to seconds
 		this.partInSeconds = partInSeconds.toString().padStart(2, "0");
 		// Returns formated time
@@ -327,9 +327,7 @@ export default class GameScene extends Phaser.Scene {
 
 	onEvent() {
 		this.initialTime += 1; // increment with One second
-		this.text.setText(
-			"Current Round Time: " + this.formatTime(this.initialTime)
-		);
+		this.text.setText("Time: " + this.formatTime(this.initialTime));
 	}
 
 	/* ---------------------------------- Timer --------------------------------- */
